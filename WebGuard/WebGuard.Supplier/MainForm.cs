@@ -1,9 +1,8 @@
-﻿using System;
+﻿using CefSharp;
+using CefSharp.WinForms;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading.Tasks;
-using CefSharp;
-using CefSharp.WinForms;
 using System.Windows.Forms;
 
 namespace WebGuard.Supplier
@@ -15,30 +14,6 @@ namespace WebGuard.Supplier
         public MainForm()
         {
             InitializeComponent();
-            InitializeChromium("vnexpress.net").LoadingStateChanged += async (o, e) =>
-            {
-                if (e.IsLoading || !(o is ChromiumWebBrowser browser)) return;
-                await browser.WhileIsNotEndScroll(
-                    async () =>
-                    {
-                        await browser.TakeScreenshot(this)
-                            .To(_screenshots, browser)
-                            .ScrollNextViewHeight();
-                    }
-                    );
-                Invoke((Action) (() =>
-                {
-                    var frm = new Form();
-                    var ptb = new PictureBox
-                    {
-                        Image = _screenshots[0],
-                        Dock = DockStyle.Fill
-                    };
-                    frm.Controls.Add(ptb);
-                    frm.Show();
-                    //Close();
-                }));
-            };
         }
 
         public ChromiumWebBrowser InitializeChromium(string url)
@@ -62,6 +37,28 @@ namespace WebGuard.Supplier
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Cef.Shutdown();
+        }
+
+        private void MainForm_Load(object sender, EventArgs ev)
+        {
+            InitializeChromium("vnexpress.net").LoadingStateChanged += async (o, e) =>
+            {
+                if (e.IsLoading || !(o is ChromiumWebBrowser browser)) return;
+                await browser.WhileIsNotEndScroll(
+                    async () =>
+                    {
+                        await browser.TakeScreenshot(this)
+                            .To(_screenshots, browser)
+                            .ScrollNextViewHeight();
+                    }
+                );
+                Invoke((Action)(() =>
+                {
+                    var path = _screenshots.MergeIntoOneBitmap().SaveTo(@"D:\home\site\wwwroot\screenshot");
+                    Console.Write(path);
+                    Close();
+                }));
+            };
         }
     }
 }

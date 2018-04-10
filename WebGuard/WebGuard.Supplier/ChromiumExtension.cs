@@ -1,7 +1,6 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,7 +21,7 @@ namespace WebGuard.Supplier
             while (!await brw.IsEndScroll())
             {
                 action.Invoke();
-                await Task.Delay(2000);
+                await Task.Delay(1000);
             }
             return brw;
         }
@@ -51,12 +50,6 @@ namespace WebGuard.Supplier
                 gp.CopyFromScreen(brw.PointToScreen(new Point(0, 0)), new Point(0, 0), new Size(brw.Width, brw.Height));
             }));
             return printscreen;
-        }
-
-        public static ChromiumWebBrowser To(this Bitmap bitmap, IList<Bitmap> bitmaps, ChromiumWebBrowser brw)
-        {
-            bitmaps.Add(bitmap);
-            return brw;
         }
     }
 }
