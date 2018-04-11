@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using static System.Environment;
 
 namespace WebGuard.Supplier
 {
@@ -22,8 +23,12 @@ namespace WebGuard.Supplier
             {
                 BrowserSubprocessPath = @"x86\CefSharp.BrowserSubprocess.exe",
                 UncaughtExceptionStackSize = 0,
-                LogSeverity = LogSeverity.Disable
+                LogSeverity = LogSeverity.Disable,
             };
+            settings.CefCommandLineArgs.Add("--disable-smooth-scrolling", "1");
+            settings.CefCommandLineArgs.Add("--disable-spell-checking", "1");
+            settings.CefCommandLineArgs.Add("--disable-sync", "1");
+            settings.CefCommandLineArgs.Add("disable-gpu", "1");
             // Initialize cef with the provided settings
             Cef.Initialize(settings);
             var chromeBrowser = new ChromiumWebBrowser(url)
@@ -54,7 +59,7 @@ namespace WebGuard.Supplier
                 );
                 Invoke((Action)(() =>
                 {
-                    var path = _screenshots.MergeIntoOneBitmap().SaveTo(@"D:\home\site\wwwroot\screenshot");
+                    var path = _screenshots.MergeIntoOneBitmap().SaveTo($@"{CurrentDirectory}\screenshot");
                     Console.Write(path);
                     Close();
                 }));

@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Properties\PublishProfiles\WebGuardAPI - FTP.pubxml" />
     <None Remove="Properties\PublishProfiles\WebGuardAPI - Web Deploy.pubxml" />
@@ -11,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\Index\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

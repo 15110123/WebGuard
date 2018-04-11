@@ -21,7 +21,7 @@ namespace WebGuard.Supplier
             while (!await brw.IsEndScroll())
             {
                 action.Invoke();
-                await Task.Delay(1000);
+                await Task.Delay(2000);
             }
             return brw;
         }

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.Security;
+using System.Text;
+using System.Threading.Tasks;
 using static System.Environment;
 
 namespace WebGuard.API.Controllers
@@ -15,28 +15,33 @@ namespace WebGuard.API.Controllers
         [HttpPost]
         public async Task<IActionResult> GetScreenShot([FromHeader]string url)
         {
-            var ps = new Process
+            //return Content($@"{CurrentDirectory}\webguard.supplier\WebGuard.Supplier.exe");
+            try
             {
-                StartInfo = new ProcessStartInfo(@"D:\home\site\wwwroot\webguard.supplier\WebGuard.Supplier.exe")
+                var ps = new Process
                 {
-                    //Ẩn cửa sổ console
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true
+                    StartInfo = new ProcessStartInfo(
+                                $@"{CurrentDirectory}\webguard.supplier\WebGuard.Supplier.exe")
+                    {
+                        RedirectStandardOutput = true,
+                    }
+                };
+                ps.Start();
+                var filename = ps.StandardOutput.ReadLine();
+
+                while (Process.GetProcessesByName("WebGuard.Supplier").Length != 0)
+                {
+                    await Task.Delay(1);
                 }
-            };
 
-            ps.Start();
+                var filebytes = await System.IO.File.ReadAllBytesAsync(filename);
 
-            var filename = ps.StandardOutput.ReadLine();
-
-            while (Process.GetProcessesByName("WebGuard.Supplier").Length != 0)
-            {
-                await Task.Delay(1);
+                return new FileContentResult(filebytes, "image/jpeg");
             }
-
-            var filebytes = await System.IO.File.ReadAllBytesAsync(filename);
-
-            return new FileContentResult(filebytes, "image/jpeg");
+            catch (Exception e)
+            {
+                return Content(e.Message + "\n" + e.StackTrace);
+            }
         }
     }
 }
