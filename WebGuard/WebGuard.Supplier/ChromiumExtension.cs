@@ -1,54 +1,48 @@
 ﻿using CefSharp;
-using CefSharp.WinForms;
-using System;
 using System.Drawing;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WebGuard.Supplier
 {
     public static class ChromiumExtension
     {
-        public static async Task<ChromiumWebBrowser> ScrollNextViewHeight(this ChromiumWebBrowser brw)
+        public static async Task<ChromiumObject> ScrollNextViewHeight(this ChromiumObject obj)
         {
-            var height = (await brw.EvaluateScriptAsync("window.innerHeight")).Result.ToString();
-            var res = await brw.EvaluateScriptAsync($"window.scrollTo(0, window.scrollY + {height});");
-            return brw;
+            await obj.Browser.EvaluateScriptAsync($"window.scrollTo(0, window.scrollY + {obj.ViewHeight});");
+            return obj;
         }
 
-        public static async Task<ChromiumWebBrowser> WhileIsNotEndScroll(this ChromiumWebBrowser brw, Action action)
+        public static async Task CaptureScreenTillEnd(this ChromiumObject obj)
         {
-            while (!await brw.IsEndScroll())
+            while (!await obj.IsEndScroll())
             {
-                action.Invoke();
-                await Task.Delay(2000);
+                await obj.CaptureScreenAndScroll();
             }
-            return brw;
         }
 
-        private static async Task<bool> IsEndScroll(this IWebBrowser brw)
+        public static async Task CaptureScreenAndScroll(this ChromiumObject obj)
         {
-            //Window height (viewable)
-            var height = int.Parse((await brw.EvaluateScriptAsync("window.innerHeight")).Result.ToString());
+            await (await obj.TakeScreenshot())
+                .To(obj._screenshots, obj)
+                .ScrollNextViewHeight();
+        }
 
-            //Scroll height (viewable + non-viewable)
-            var scrollHeight = int.Parse((await brw.EvaluateScriptAsync("document.body.scrollHeight")).Result.ToString());
-
+        private static async Task<bool> IsEndScroll(this ChromiumObject obj)
+        {
             //Scroll position Y-axis
-            var curScrollPos = int.Parse((await brw.EvaluateScriptAsync("window.scrollY")).Result.ToString());
+            var curScrollPos = double.Parse((await obj.Browser.EvaluateScriptAsync("window.scrollY")).Result.ToString());
 
             //Not 100% correct, '1' is for rounding value
-            return height + curScrollPos + 1 > scrollHeight;
+            return obj.ViewHeight + curScrollPos + 1 > obj.TotalHeight;
         }
 
-        public static Bitmap TakeScreenshot(this ChromiumWebBrowser brw, Form brwForm)
+        public static async Task<Bitmap> TakeScreenshot(this ChromiumObject obj)
         {
-            var printscreen = new Bitmap(brw.Width, brw.Height);
+            await Task.Delay(2000);
+            var printscreen = new Bitmap(obj.Browser.Width, obj.Browser.Height);
             var gp = Graphics.FromImage(printscreen);
-            brw.Invoke((Action) (() =>
-            {
-                gp.CopyFromScreen(brw.PointToScreen(new Point(0, 0)), new Point(0, 0), new Size(brw.Width, brw.Height));
-            }));
+            gp.CopyFromScreen(0, 0, 0, 0, printscreen.Size, CopyPixelOperation.SourceCopy);
+            await Task.Delay(2000);
             return printscreen;
         }
     }

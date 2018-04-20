@@ -8,10 +8,10 @@ namespace WebGuard.Supplier
 {
     public static class BitmapExtension
     {
-        public static ChromiumWebBrowser To(this Bitmap bitmap, IList<Bitmap> bitmaps, ChromiumWebBrowser brw)
+        public static ChromiumObject To(this Bitmap bitmap, IList<Bitmap> bitmaps, ChromiumObject obj)
         {
             bitmaps.Add(bitmap);
-            return brw;
+            return obj;
         }
 
         public static Bitmap MergeIntoOneBitmap(this IList<Bitmap> bitmaps)

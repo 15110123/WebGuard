@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="BitmapExtension.cs" />
     <Compile Include="ChromiumExtension.cs" />
+    <Compile Include="ChromiumHandler\CustomRequestHandler.cs" />
+    <Compile Include="ChromiumObject.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

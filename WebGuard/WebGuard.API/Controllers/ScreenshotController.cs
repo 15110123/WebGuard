@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Diagnostics;
-using System.Security;
-using System.Text;
 using System.Threading.Tasks;
 using static System.Environment;
 
@@ -23,7 +21,8 @@ namespace WebGuard.API.Controllers
                     StartInfo = new ProcessStartInfo(
                                 $@"{CurrentDirectory}\webguard.supplier\WebGuard.Supplier.exe")
                     {
-                        RedirectStandardOutput = true,
+                        Arguments = url,
+                        RedirectStandardOutput = true
                     }
                 };
                 ps.Start();
@@ -31,7 +30,7 @@ namespace WebGuard.API.Controllers
 
                 while (Process.GetProcessesByName("WebGuard.Supplier").Length != 0)
                 {
-                    await Task.Delay(1);
+                    await Task.Delay(2000);
                 }
 
                 var filebytes = await System.IO.File.ReadAllBytesAsync(filename);
