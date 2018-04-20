@@ -1,4 +1,4 @@
-﻿namespace WebGuard
+﻿namespace WebGuard.Forms
 {
     partial class MainForm
     {
@@ -31,7 +31,7 @@
             this.pnlMain = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.BtnContentVerify = new System.Windows.Forms.Button();
+            this.BtnReliability = new System.Windows.Forms.Button();
             this.BtnXSS = new System.Windows.Forms.Button();
             this.pnlIcon = new System.Windows.Forms.Panel();
             this.pnlMain.SuspendLayout();
@@ -39,9 +39,10 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.pnlMain.Controls.Add(this.label2);
             this.pnlMain.Controls.Add(this.label1);
-            this.pnlMain.Controls.Add(this.BtnContentVerify);
+            this.pnlMain.Controls.Add(this.BtnReliability);
             this.pnlMain.Controls.Add(this.BtnXSS);
             this.pnlMain.Controls.Add(this.pnlIcon);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -70,14 +71,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Internet: đang bật";
             // 
-            // BtnContentVerify
+            // BtnReliability
             // 
-            this.BtnContentVerify.Location = new System.Drawing.Point(412, 207);
-            this.BtnContentVerify.Name = "BtnContentVerify";
-            this.BtnContentVerify.Size = new System.Drawing.Size(159, 137);
-            this.BtnContentVerify.TabIndex = 2;
-            this.BtnContentVerify.Text = "Xác nhận nội dung trang web";
-            this.BtnContentVerify.UseVisualStyleBackColor = true;
+            this.BtnReliability.Location = new System.Drawing.Point(412, 207);
+            this.BtnReliability.Name = "BtnReliability";
+            this.BtnReliability.Size = new System.Drawing.Size(159, 137);
+            this.BtnReliability.TabIndex = 2;
+            this.BtnReliability.Text = "Xác nhận nội dung trang web";
+            this.BtnReliability.UseVisualStyleBackColor = true;
             // 
             // BtnXSS
             // 
@@ -99,7 +100,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(592, 391);
             this.Controls.Add(this.pnlMain);
             this.DoubleBuffered = true;
@@ -122,7 +123,7 @@
 
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Panel pnlIcon;
-        private System.Windows.Forms.Button BtnContentVerify;
+        private System.Windows.Forms.Button BtnReliability;
         private System.Windows.Forms.Button BtnXSS;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

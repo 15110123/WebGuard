@@ -7,20 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WebGuard.Utils;
 
-namespace WebGuard
+namespace WebGuard.Forms.WebReliability
 {
-    public partial class MainForm : Form
+    public partial class ReliabilityForm : Form
     {
-        public MainForm()
+        public ReliabilityForm()
         {
             InitializeComponent();
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            pnlIcon.AddIcon("wifi_connected.html", "#454545");
         }
     }
 }

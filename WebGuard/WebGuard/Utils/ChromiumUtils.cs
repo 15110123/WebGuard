@@ -4,7 +4,7 @@ using WebGuard.CustomBrowser;
 
 namespace WebGuard.Utils
 {
-    public static class ChromiumUtil
+    public static class ChromiumUtils
     {
         public static void AddIcon(this Panel container, string name, string backgroundColor)
         {

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CefSharp;
+using System;
 using System.Windows.Forms;
-using CefSharp;
+using WebGuard.Forms;
 
 namespace WebGuard
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.

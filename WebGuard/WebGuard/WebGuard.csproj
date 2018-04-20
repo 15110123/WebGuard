@@ -59,17 +59,36 @@
     <Compile Include="CustomBrowser\CustomChromium.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WebReliability\ReliabilityForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WebReliability\ReliabilityForm.Designer.cs">
+      <DependentUpon>ReliabilityForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\XSS\XSSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\XSS\XSSForm.Designer.cs">
+      <DependentUpon>XSSForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\ChromiumUtil.cs" />
-    <EmbeddedResource Include="MainForm.resx">
+    <Compile Include="Utils\ChromiumUtils.cs" />
+    <Compile Include="Utils\WebCrawlerUtils.cs" />
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WebReliability\ReliabilityForm.resx">
+      <DependentUpon>ReliabilityForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\XSS\XSSForm.resx">
+      <DependentUpon>XSSForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -94,6 +113,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
