@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using WebGuard.Forms.XSS;
 using WebGuard.Utils;
 
 namespace WebGuard.Forms
@@ -9,11 +10,13 @@ namespace WebGuard.Forms
         public MainForm()
         {
             InitializeComponent();
+            pnlIcon.AddIcon("wifi_connected", "#454545");
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void BtnXSS_Click(object sender, EventArgs e)
         {
-            pnlIcon.AddIcon("wifi_connected.html", "#454545");
+            var xssForm = new XSSForm();
+            xssForm.ShowDialog();
         }
     }
 }

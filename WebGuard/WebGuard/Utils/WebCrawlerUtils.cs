@@ -1,17 +1,19 @@
 ﻿using System;
+using CefSharp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CefSharp;
+using WebGuard.CustomBrowser;
 
 namespace WebGuard.Utils
 {
     public static class WebCrawlerUtil
     {
-        public static async Task<IList<string>> GetAllPageUrl(this IWebBrowser brw)
+        public static async Task<IList<string>> GetAllPageUrlWithSameOrigin(this ChromiumWithScript brw)
         {
-            var lstLevel = new List<IList<string>> { await brw.GetPageUrls() };
+            var lstLevel = new List<IList<string>> { await brw.GetPageUrlsWithSameOrigin() };
             var urlHashSet = new HashSet<string>(lstLevel[0]);
+            var alreadyGetUrlHashSet = new HashSet<string>();
             var curUrls = null as IList<string>;
             var isBrwDoneLoading = false;
 
@@ -21,6 +23,9 @@ namespace WebGuard.Utils
             {
                 foreach (var url in lstLevel[i])
                 {
+                    //If we already crawling the url, skip it
+                    if (alreadyGetUrlHashSet.Contains(url)) continue;
+
                     curUrls = null;
                     isBrwDoneLoading = false;
                     brw.Load(url);
@@ -37,6 +42,8 @@ namespace WebGuard.Utils
                     }
 
                     lstLevel.Add(urlHashSet.ToArray());
+
+                    alreadyGetUrlHashSet.Add(url);
                 }
             }
 
@@ -46,10 +53,10 @@ namespace WebGuard.Utils
             async void BrwOnLoadingStateChanged(object o, LoadingStateChangedEventArgs e)
             {
                 // ReSharper disable once AccessToModifiedClosure
-                if (!e.IsLoading || isBrwDoneLoading) return;
+                if (e.IsLoading || isBrwDoneLoading) return;
                 isBrwDoneLoading = true;
 
-                curUrls = await brw.GetPageUrls();
+                curUrls = await brw.GetPageUrlsWithSameOrigin();
             }
         }
 
@@ -58,11 +65,18 @@ namespace WebGuard.Utils
         /// </summary>
         /// <param name="brw"></param>
         /// <returns></returns>
-        public static async Task<IList<string>> GetPageUrls(this IWebBrowser brw)
+        public static async Task<IList<string>> GetPageUrlsWithSameOrigin(this ChromiumWithScript brw)
         {
             var urlHashSet = new HashSet<string>();
-            var result = (await brw.EvaluateScriptAsync(
-                "Array.prototype.forEach.call(document.getElementsByTagName(\"a\"), (ele) => {console.log(ele.href)})")).Result.ToString().Split('\n');
+            await brw.EvaluateScriptAsync("var urls = \"\"");
+            await brw.EvaluateScriptAsync(
+                "Array.prototype.forEach.call(document.getElementsByTagName(\"a\"), (ele) => {urls += ele.href + \",\"})");
+            await brw.EvaluateScriptAsync("console.log(urls)");
+            var urls = brw.ConsoleOutput;
+
+            //Filter null/empty href and different origins
+             var result = urls.Split(',')
+                 .Where(x => !string.IsNullOrEmpty(x) && x.IndexOf(brw.Origin, StringComparison.OrdinalIgnoreCase) != -1);
 
             //Remove same URL in the result by a hash set
             foreach (var ele in result)

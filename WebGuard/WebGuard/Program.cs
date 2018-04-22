@@ -24,11 +24,11 @@ namespace WebGuard
             settings.CefCommandLineArgs.Add("--disable-threaded-scrolling", "1");
             settings.CefCommandLineArgs.Add("--disable-infobars", "1");
             settings.CefCommandLineArgs.Add("--disable-offline-auto-reload", "1");
-            settings.CefCommandLineArgs.Add("disable-gpu-vsync", "1");
+            //settings.CefCommandLineArgs.Add("disable-gpu-vsync", "1");
             settings.CefCommandLineArgs.Add("--disable-smooth-scrolling", "1");
             settings.CefCommandLineArgs.Add("--disable-spell-checking", "1");
             settings.CefCommandLineArgs.Add("--disable-sync", "1");
-            settings.CefCommandLineArgs.Add("disable-gpu", "1");
+            //settings.CefCommandLineArgs.Add("disable-gpu", "1");
             settings.CefCommandLineArgs.Add("--allow-file-access-from-files", "1");
             settings.DisableGpuAcceleration();
             // Initialize cef with the provided settings

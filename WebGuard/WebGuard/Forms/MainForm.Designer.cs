@@ -88,6 +88,7 @@
             this.BtnXSS.TabIndex = 1;
             this.BtnXSS.Text = "Dò XSS";
             this.BtnXSS.UseVisualStyleBackColor = true;
+            this.BtnXSS.Click += new System.EventHandler(this.BtnXSS_Click);
             // 
             // pnlIcon
             // 
@@ -112,7 +113,6 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LMT Web Guard";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
             this.ResumeLayout(false);

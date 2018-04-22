@@ -1,14 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CefSharp;
+﻿using CefSharp;
 
 namespace WebGuard.CustomBrowser.BrowserHandler
 {
     public class CustomContextMenuHandler : IContextMenuHandler
     {
+        private static CustomContextMenuHandler _handler;
+
+        /// <summary>
+        /// Singleton pattern
+        /// </summary>
+        public static CustomContextMenuHandler Handler => _handler ?? (_handler = new CustomContextMenuHandler());
+
+        private CustomContextMenuHandler()
+        {
+
+        }
+
         public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters,
             IMenuModel model)
         {
