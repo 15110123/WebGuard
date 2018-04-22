@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.pnlMain = new System.Windows.Forms.Panel();
-            this.pnlInfo = new System.Windows.Forms.Panel();
-            this.pnlLoading = new System.Windows.Forms.Panel();
-            this.lblWait = new System.Windows.Forms.Label();
             this.pnlBrowser = new System.Windows.Forms.Panel();
+            this.pnlInfo = new System.Windows.Forms.Panel();
+            this.lblWait = new System.Windows.Forms.Label();
+            this.pnlLoading = new System.Windows.Forms.Panel();
+            this.lblProgress = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlInfo.SuspendLayout();
             this.SuspendLayout();
@@ -48,21 +49,22 @@
             this.pnlMain.Size = new System.Drawing.Size(1200, 727);
             this.pnlMain.TabIndex = 0;
             // 
+            // pnlBrowser
+            // 
+            this.pnlBrowser.Location = new System.Drawing.Point(0, 0);
+            this.pnlBrowser.Name = "pnlBrowser";
+            this.pnlBrowser.Size = new System.Drawing.Size(599, 724);
+            this.pnlBrowser.TabIndex = 1;
+            // 
             // pnlInfo
             // 
+            this.pnlInfo.Controls.Add(this.lblProgress);
             this.pnlInfo.Controls.Add(this.lblWait);
             this.pnlInfo.Controls.Add(this.pnlLoading);
             this.pnlInfo.Location = new System.Drawing.Point(599, 0);
             this.pnlInfo.Name = "pnlInfo";
             this.pnlInfo.Size = new System.Drawing.Size(601, 724);
             this.pnlInfo.TabIndex = 0;
-            // 
-            // pnlLoading
-            // 
-            this.pnlLoading.Location = new System.Drawing.Point(97, 268);
-            this.pnlLoading.Name = "pnlLoading";
-            this.pnlLoading.Size = new System.Drawing.Size(394, 191);
-            this.pnlLoading.TabIndex = 0;
             // 
             // lblWait
             // 
@@ -75,12 +77,23 @@
             this.lblWait.TabIndex = 1;
             this.lblWait.Text = "Xin chờ...";
             // 
-            // pnlBrowser
+            // pnlLoading
             // 
-            this.pnlBrowser.Location = new System.Drawing.Point(0, 0);
-            this.pnlBrowser.Name = "pnlBrowser";
-            this.pnlBrowser.Size = new System.Drawing.Size(599, 724);
-            this.pnlBrowser.TabIndex = 1;
+            this.pnlLoading.Location = new System.Drawing.Point(97, 268);
+            this.pnlLoading.Name = "pnlLoading";
+            this.pnlLoading.Size = new System.Drawing.Size(394, 191);
+            this.pnlLoading.TabIndex = 0;
+            // 
+            // lblProgress
+            // 
+            this.lblProgress.AutoSize = true;
+            this.lblProgress.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProgress.ForeColor = System.Drawing.Color.White;
+            this.lblProgress.Location = new System.Drawing.Point(178, 533);
+            this.lblProgress.Name = "lblProgress";
+            this.lblProgress.Size = new System.Drawing.Size(236, 32);
+            this.lblProgress.TabIndex = 2;
+            this.lblProgress.Text = "Quét toàn bộ trang...";
             // 
             // XSSForm
             // 
@@ -112,5 +125,6 @@
         private System.Windows.Forms.Panel pnlLoading;
         private System.Windows.Forms.Label lblWait;
         private System.Windows.Forms.Panel pnlBrowser;
+        private System.Windows.Forms.Label lblProgress;
     }
 }

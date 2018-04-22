@@ -21,6 +21,9 @@ namespace WebGuard.Forms.XSS
 
         private void XSSForm_Load(object sender, EventArgs e)
         {
+            pnlLoading.CenterXIn(pnlInfo);
+            lblWait.CenterXIn(pnlInfo);
+
             var brw = new ChromiumWithScript("http://testfire.net", "")
             {
                 Dock = DockStyle.Fill
@@ -31,17 +34,19 @@ namespace WebGuard.Forms.XSS
 
         private async void BrwOnLoadingStateChanged(object o, LoadingStateChangedEventArgs e)
         {
-            if (e.IsLoading || 
-                _isCrawling || 
+
+            if (e.IsLoading ||
+                _isCrawling ||
                 !(o is ChromiumWithScript brw)) return;
             _isCrawling = true;
             var result = await brw.GetAllPageUrlWithSameOrigin();
-            pnlLoading.Visible = false;
-            lblWait.Visible = false;
-            foreach (var ele in result)
+
+            Invoke((Action)(async () =>
             {
-                Console.WriteLine(ele);
-            }
+                await lblProgress.ChangeText("Tìm GET form", pnlInfo);
+            }));
+
+
         }
     }
 }
