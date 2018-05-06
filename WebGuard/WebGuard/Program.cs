@@ -31,6 +31,7 @@ namespace WebGuard
             //settings.CefCommandLineArgs.Add("disable-gpu", "1");
             settings.CefCommandLineArgs.Add("--allow-file-access-from-files", "1");
             settings.DisableGpuAcceleration();
+            settings.CefCommandLineArgs.Add("--disable-xss-auditor", "1");
             // Initialize cef with the provided settings
             Cef.Initialize(settings);
 

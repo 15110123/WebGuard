@@ -40,7 +40,11 @@ namespace WebGuard.Forms.XSS
                 !(o is ChromiumWithScript brw)) return;
             _isCrawling = true;
             var result = await brw.GetAllPageUrlWithSameOrigin();
-
+            foreach (var x in result)
+            {
+                String soform = await WebCrawlerUtil.findget(brw,x.ToString());
+                Console.WriteLine(soform);
+            }
             Invoke((Action)(async () =>
             {
                 await lblProgress.ChangeText("Tìm GET form", pnlInfo);
