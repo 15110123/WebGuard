@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using WebGuard.Forms.WebReliability;
 using WebGuard.Forms.XSS;
 using WebGuard.Utils;
 
@@ -17,6 +18,12 @@ namespace WebGuard.Forms
         {
             var xssForm = new XSSForm();
             xssForm.ShowDialog();
+        }
+
+        private void BtnReliability_Click(object sender, EventArgs e)
+        {
+            var reliabilityForm = new ReliabilityForm();
+            reliabilityForm.ShowDialog();
         }
     }
 }
