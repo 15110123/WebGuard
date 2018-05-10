@@ -4,8 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebGuard", "WebGuard\WebGuard.csproj", "{E2FA753C-71B5-4B76-9BC8-F62EEBE486EB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D1B5CE54-15A1-43AB-B84D-7149E6C9D76E} = {D1B5CE54-15A1-43AB-B84D-7149E6C9D76E}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebGuard.API", "WebGuard.API\WebGuard.API.csproj", "{54A7F46F-5631-47F2-8E1A-0596F6865C14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebGuard.API", "WebGuard.API\WebGuard.API.csproj", "{54A7F46F-5631-47F2-8E1A-0596F6865C14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebGuard.Supplier", "WebGuard.Supplier\WebGuard.Supplier.csproj", "{D1B5CE54-15A1-43AB-B84D-7149E6C9D76E}"
 EndProject

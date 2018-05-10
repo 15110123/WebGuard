@@ -65,6 +65,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(2, 40);
             this.label1.MaximumSize = new System.Drawing.Size(123, 123);
@@ -73,6 +74,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Lấy hình ảnh từ server";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel2
             // 
@@ -180,6 +182,7 @@
             this.pnlLoading1.Name = "pnlLoading1";
             this.pnlLoading1.Size = new System.Drawing.Size(76, 76);
             this.pnlLoading1.TabIndex = 4;
+            this.pnlLoading1.Visible = false;
             // 
             // pnlLoading2
             // 
@@ -187,6 +190,7 @@
             this.pnlLoading2.Name = "pnlLoading2";
             this.pnlLoading2.Size = new System.Drawing.Size(76, 76);
             this.pnlLoading2.TabIndex = 5;
+            this.pnlLoading2.Visible = false;
             // 
             // pnlLoading3
             // 
@@ -194,6 +198,7 @@
             this.pnlLoading3.Name = "pnlLoading3";
             this.pnlLoading3.Size = new System.Drawing.Size(76, 76);
             this.pnlLoading3.TabIndex = 5;
+            this.pnlLoading3.Visible = false;
             // 
             // ProgressDetails
             // 
@@ -210,6 +215,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ProgressDetails";
             this.Size = new System.Drawing.Size(843, 418);
+            this.Load += new System.EventHandler(this.ProgressDetails_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

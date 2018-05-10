@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 using WebGuard.Forms;
+using WebGuard.Utils;
 
 namespace WebGuard
 {
@@ -37,6 +38,7 @@ namespace WebGuard
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new MainForm());
         }
     }

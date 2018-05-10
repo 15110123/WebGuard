@@ -8,7 +8,7 @@ namespace WebGuard.Forms.WebReliability
         public ReliabilityForm()
         {
             InitializeComponent();
-            pnlProgressDetails.Controls.Add(new ProgressDetails
+            pnlProgressDetails.Controls.Add(new ProgressDetails("https://vnexpress.net")
             {
                 Dock = DockStyle.Fill
             });
