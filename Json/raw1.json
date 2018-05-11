@@ -1,0 +1,32 @@
+{
+  "categories": [
+    { "name": "others_", "score": 0.00390625 },
+    { "name": "outdoor_", "score": 0.01953125, "detail": { "landmarks": [] } },
+    { "name": "text_", "score": 0.265625 },
+    { "name": "text_menu", "score": 0.22265625 }
+  ],
+  "tags": [
+    { "name": "abstract", "confidence": 0.92660665512084961 },
+    { "name": "screenshot", "confidence": 0.89914959669113159 }
+  ],
+  "description": {
+    "tags": ["abstract", "screenshot"],
+    "captions": [
+      {
+        "text": "a screenshot of a cell phone",
+        "confidence": 0.87884128445850662
+      }
+    ]
+  },
+  "faces": [],
+  "color": {
+    "dominantColorForeground": "White",
+    "dominantColorBackground": "White",
+    "dominantColors": ["White"],
+    "accentColor": "BA9C11",
+    "isBwImg": false
+  },
+  "imageType": { "clipArtType": 0, "lineDrawingType": 0 },
+  "requestId": "7a959f2e-316e-407e-a122-d684dfe96d8e",
+  "metadata": { "height": 5376, "width": 1366, "format": "Png" }
+}

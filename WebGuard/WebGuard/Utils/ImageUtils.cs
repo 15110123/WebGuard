@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace WebGuard.Utils
 {
@@ -30,5 +34,41 @@ namespace WebGuard.Utils
         private static ImageCodecInfo GetEncoderInfo(string mimeType)
             => ImageCodecInfo.GetImageEncoders()
                         .FirstOrDefault(t => t.MimeType == mimeType);
+
+        public enum Method
+        {
+            Get, Post
+        }
+
+        public static async Task<Bitmap> DownloadBitmap(string url, Method method,
+            params (string parameter, string value)[] content)
+        {
+            Stream stream;
+
+            using (var httpClient = new HttpClient())
+            {
+                if (method == Method.Get)
+                {
+                    stream = await httpClient.GetStreamAsync(url);
+                }
+                else
+                {
+                    //var contentKeyValPair = content.Select(x => new KeyValuePair<string, string>(x.parameter, x.value));
+
+                    //var httpContent = new FormUrlEncodedContent(contentKeyValPair);
+
+                    foreach (var ele in content)
+                    {
+                        httpClient.DefaultRequestHeaders.Add(ele.parameter, ele.value);
+                    }
+
+                    stream = await (await httpClient.PostAsync(url, null))
+                        .Content
+                        .ReadAsStreamAsync();
+                }
+            }
+
+            return new Bitmap(stream);
+        }
     }
 }

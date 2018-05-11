@@ -39,10 +39,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblPercents = new System.Windows.Forms.Label();
             this.pnlLoading1 = new System.Windows.Forms.Panel();
             this.pnlLoading2 = new System.Windows.Forms.Panel();
-            this.pnlLoading3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -67,12 +66,12 @@
             this.label1.AutoSize = true;
             this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(2, 40);
+            this.label1.Location = new System.Drawing.Point(4, 40);
             this.label1.MaximumSize = new System.Drawing.Size(123, 123);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 42);
+            this.label1.Size = new System.Drawing.Size(116, 42);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Lấy hình ảnh từ server";
+            this.label1.Text = "Lấy hình ảnh, HTML từ server";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
@@ -107,13 +106,14 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(2, 40);
+            this.label2.Location = new System.Drawing.Point(10, 40);
             this.label2.MaximumSize = new System.Drawing.Size(123, 123);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 42);
+            this.label2.Size = new System.Drawing.Size(103, 42);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Lấy hình ảnh từ máy";
+            this.label2.Text = "Lấy hình ảnh, HTML từ máy";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // panel5
             // 
@@ -142,7 +142,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 42);
             this.label3.TabIndex = 0;
-            this.label3.Text = "So sánh hình ảnh";
+            this.label3.Text = "So sánh hình ảnh, HTML";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel7
@@ -157,24 +157,24 @@
             // panel8
             // 
             this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.panel8.Controls.Add(this.label4);
+            this.panel8.Controls.Add(this.lblPercents);
             this.panel8.Location = new System.Drawing.Point(8, 8);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(123, 123);
             this.panel8.TabIndex = 0;
             // 
-            // label4
+            // lblPercents
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(29, 36);
-            this.label4.MaximumSize = new System.Drawing.Size(123, 123);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 45);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "...%";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblPercents.AutoSize = true;
+            this.lblPercents.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPercents.ForeColor = System.Drawing.Color.White;
+            this.lblPercents.Location = new System.Drawing.Point(29, 36);
+            this.lblPercents.MaximumSize = new System.Drawing.Size(123, 123);
+            this.lblPercents.Name = "lblPercents";
+            this.lblPercents.Size = new System.Drawing.Size(67, 45);
+            this.lblPercents.TabIndex = 0;
+            this.lblPercents.Text = "...%";
+            this.lblPercents.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // pnlLoading1
             // 
@@ -192,20 +192,11 @@
             this.pnlLoading2.TabIndex = 5;
             this.pnlLoading2.Visible = false;
             // 
-            // pnlLoading3
-            // 
-            this.pnlLoading3.Location = new System.Drawing.Point(269, 154);
-            this.pnlLoading3.Name = "pnlLoading3";
-            this.pnlLoading3.Size = new System.Drawing.Size(76, 76);
-            this.pnlLoading3.TabIndex = 5;
-            this.pnlLoading3.Visible = false;
-            // 
             // ProgressDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
-            this.Controls.Add(this.pnlLoading3);
             this.Controls.Add(this.pnlLoading2);
             this.Controls.Add(this.pnlLoading1);
             this.Controls.Add(this.panel7);
@@ -245,9 +236,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblPercents;
         private System.Windows.Forms.Panel pnlLoading1;
         private System.Windows.Forms.Panel pnlLoading2;
-        private System.Windows.Forms.Panel pnlLoading3;
     }
 }

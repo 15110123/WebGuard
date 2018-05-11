@@ -11,7 +11,7 @@ namespace WebGuard.API.Controllers
     {
         // POST
         [HttpPost]
-        public async Task<IActionResult> GetScreenShot([FromHeader]string url)
+        public async Task<IActionResult> GetScreenShot([FromHeader]string url, [FromHeader]string html)
         {
             //return Content($@"{CurrentDirectory}\webguard.supplier\WebGuard.Supplier.exe");
             try
@@ -21,21 +21,23 @@ namespace WebGuard.API.Controllers
                     StartInfo = new ProcessStartInfo(
                                 $@"{CurrentDirectory}\webguard.supplier\WebGuard.Supplier.exe")
                     {
-                        Arguments = url,
+                        Arguments = $"{html} {url}",
                         RedirectStandardOutput = true
                     }
                 };
                 ps.Start();
-                var filename = ps.StandardOutput.ReadLine();
+                var filenameOrHtml = ps.StandardOutput.ReadLine();
 
                 while (Process.GetProcessesByName("WebGuard.Supplier").Length != 0)
                 {
                     await Task.Delay(2000);
                 }
 
-                var filebytes = await System.IO.File.ReadAllBytesAsync(filename);
+                if (html != "0") return Content(filenameOrHtml);
 
+                var filebytes = await System.IO.File.ReadAllBytesAsync(filenameOrHtml);
                 return new FileContentResult(filebytes, "image/jpeg");
+
             }
             catch (Exception e)
             {

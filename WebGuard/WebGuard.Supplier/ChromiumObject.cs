@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebGuard.Supplier.ChromiumHandler;
@@ -20,12 +21,16 @@ namespace WebGuard.Supplier
         public double TotalHeight;
         public double ViewHeight;
         private bool _isStartCapturing;
+        private string _htmlSrc;
+        private readonly bool _isImg;
 
-        public ChromiumObject(string url, Form container)
+        public ChromiumObject(string url, Form container, string imgOrHtml)
         {
             Url = url;
             Container = container;
             Container.Load += Container_Load;
+
+            _isImg = imgOrHtml == "0";
         }
 
         private ChromiumWebBrowser InitializeChromium(string url)
@@ -70,14 +75,29 @@ namespace WebGuard.Supplier
                 {
                     if (_isStartCapturing) return;
                     _isStartCapturing = true;
-                    //Set height property
-                    ViewHeight = double.Parse((await Browser.EvaluateScriptAsync("window.innerHeight")).Result.ToString());
-                    TotalHeight = double.Parse((await Browser.EvaluateScriptAsync("document.body.scrollHeight")).Result.ToString());
+                    if (!_isImg)
+                    {
+                        var targetArr = new[] { '{', '}', '"', ':', ',', '[', ']', '<', '>', '\\', '/', '\n', ' ', '=' };
+                        var rawStr = (await Browser.EvaluateScriptAsync("document.body.innerHTML")).Result
+                            .ToString();
+                        _htmlSrc = new string(rawStr
+                            .Where(x => targetArr.All(y => y != x))
+                            .ToArray());
+                        Console.Write(_htmlSrc);
+                    }
+                    else
+                    {
+                        //Set height property
+                        ViewHeight =
+                            double.Parse((await Browser.EvaluateScriptAsync("window.innerHeight")).Result.ToString());
+                        TotalHeight = double.Parse((await Browser.EvaluateScriptAsync("document.body.scrollHeight"))
+                            .Result.ToString());
 
-                    await this.CaptureScreenTillEnd();
+                        await this.CaptureScreenTillEnd();
 
-                    var path = _screenshots.MergeIntoOneBitmap().SaveTo($@"{CurrentDirectory}\screenshot");
-                    Console.Write(path);
+                        var path = _screenshots.MergeIntoOneBitmap().SaveTo($@"{CurrentDirectory}\screenshot");
+                        Console.Write(path);
+                    }
                     Container.Close();
                 }));
             };

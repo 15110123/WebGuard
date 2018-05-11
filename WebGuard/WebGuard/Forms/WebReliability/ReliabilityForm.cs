@@ -8,10 +8,23 @@ namespace WebGuard.Forms.WebReliability
         public ReliabilityForm()
         {
             InitializeComponent();
-            pnlProgressDetails.Controls.Add(new ProgressDetails("https://vnexpress.net")
+        }
+
+        private void ReliabilityForm_Load(object sender, System.EventArgs e)
+        {
+            using (var dialog = new AskUrlForm())
             {
-                Dock = DockStyle.Fill
-            });
+                dialog.ShowDialog();
+                if (dialog.Url == null)
+                {
+                    Close();
+                    return;
+                }
+                pnlProgressDetails.Controls.Add(new ProgressDetails(dialog.Url)
+                {
+                    Dock = DockStyle.Fill
+                });
+            }
         }
     }
 }

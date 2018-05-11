@@ -7,10 +7,10 @@ namespace WebGuard.Supplier
     {
         private readonly ChromiumObject _chromiumObject;
 
-        public MainForm(string url = null)
+        public MainForm(string imgOrHtml, string url = null)
         {
             InitializeComponent();
-            _chromiumObject = new ChromiumObject(url, this);
+            _chromiumObject = new ChromiumObject(url, this, imgOrHtml);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -13,7 +13,7 @@ namespace WebGuard.Supplier
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(args.Length == 0 ? null : args[0]));
+            Application.Run(new MainForm(args[0], args[1]));
         }
     }
 }

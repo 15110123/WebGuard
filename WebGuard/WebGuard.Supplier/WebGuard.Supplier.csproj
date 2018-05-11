@@ -9,7 +9,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D1B5CE54-15A1-43AB-B84D-7149E6C9D76E}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>WebGuard.Supplier</RootNamespace>
     <AssemblyName>WebGuard.Supplier</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
