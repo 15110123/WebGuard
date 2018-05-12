@@ -16,6 +16,14 @@ using static WebGuard.Utils.LevenshteinUtils;
 
 namespace WebGuard.UserControls.WebReliability
 {
+//Step 1: Get all image from src in <img/> 
+//Step 2: Get all src in <iframe/> 
+//Step 3: Get content (innerText) from html 
+
+// TH1: onload, onafter, <script></script>
+// TH2: Lồng ghép 
+// TH3: <script src="">
+
     public sealed partial class ProgressDetails : UserControl
     {
         public event EventHandler DoneCapturingPc;
