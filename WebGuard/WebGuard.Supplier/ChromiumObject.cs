@@ -23,6 +23,7 @@ namespace WebGuard.Supplier
         private bool _isStartCapturing;
         private string _htmlSrc;
         private readonly bool _isImg;
+        private string _consoleOutput;
 
         public ChromiumObject(string url, Form container, string imgOrHtml)
         {
@@ -60,8 +61,14 @@ namespace WebGuard.Supplier
                 Enabled = false,
                 RequestHandler = new CustomRequestHandler()
             };
+            chromeBrowser.ConsoleMessage += ChromeBrowser_ConsoleMessage;
             Container.Controls.Add(chromeBrowser);
             return chromeBrowser;
+        }
+
+        private void ChromeBrowser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
+        {
+            _consoleOutput = e.Message;
         }
 
         private void Container_Load(object sender, EventArgs ev)
@@ -77,13 +84,16 @@ namespace WebGuard.Supplier
                     _isStartCapturing = true;
                     if (!_isImg)
                     {
-                        var targetArr = new[] { '{', '}', '"', ':', ',', '[', ']', '<', '>', '\\', '/', '\n', ' ', '=' };
-                        var rawStr = (await Browser.EvaluateScriptAsync("document.body.innerHTML")).Result
-                            .ToString();
-                        _htmlSrc = new string(rawStr
-                            .Where(x => targetArr.All(y => y != x))
-                            .ToArray());
-                        Console.Write(_htmlSrc);
+                        //var targetArr = new[] { '{', '}', '"', ':', ',', '[', ']', '<', '>', '\\', '/', '\n', ' ', '=' };
+                        _htmlSrc = (await Browser.EvaluateScriptAsync("document.getElementsByTagName(\"html\")[0].innerText")).Result
+                            .ToString().Replace("\n", "");
+                        await Browser.EvaluateScriptAsync(
+                            "Array.prototype.forEach.call(document.getElementsByTagName(\"*\"), (o) => {console.log(o.src != null ? o.src : \"\")})");
+                        _htmlSrc += _consoleOutput;
+                        //_htmlSrc = new string(rawStr
+                        //.Where(x => targetArr.All(y => y != x))
+                        //.ToArray());
+                        Console.Write(_consoleOutput);
                     }
                     else
                     {
