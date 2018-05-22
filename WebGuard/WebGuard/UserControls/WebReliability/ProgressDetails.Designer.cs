@@ -42,6 +42,8 @@
             this.lblPercents = new System.Windows.Forms.Label();
             this.pnlLoading1 = new System.Windows.Forms.Panel();
             this.pnlLoading2 = new System.Windows.Forms.Panel();
+            this.lblResult = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -50,6 +52,7 @@
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -192,11 +195,33 @@
             this.pnlLoading2.TabIndex = 5;
             this.pnlLoading2.Visible = false;
             // 
+            // lblResult
+            // 
+            this.lblResult.AutoSize = true;
+            this.lblResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblResult.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResult.ForeColor = System.Drawing.Color.White;
+            this.lblResult.Location = new System.Drawing.Point(0, 0);
+            this.lblResult.MaximumSize = new System.Drawing.Size(324, 0);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.Size = new System.Drawing.Size(35, 40);
+            this.lblResult.TabIndex = 6;
+            this.lblResult.Text = "...";
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.lblResult);
+            this.panel9.Location = new System.Drawing.Point(516, 279);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(324, 100);
+            this.panel9.TabIndex = 7;
+            // 
             // ProgressDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.Controls.Add(this.panel9);
             this.Controls.Add(this.pnlLoading2);
             this.Controls.Add(this.pnlLoading1);
             this.Controls.Add(this.panel7);
@@ -219,6 +244,8 @@
             this.panel7.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -239,5 +266,7 @@
         private System.Windows.Forms.Label lblPercents;
         private System.Windows.Forms.Panel pnlLoading1;
         private System.Windows.Forms.Panel pnlLoading2;
+        private System.Windows.Forms.Label lblResult;
+        private System.Windows.Forms.Panel panel9;
     }
 }

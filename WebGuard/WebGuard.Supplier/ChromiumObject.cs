@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebGuard.Supplier.ChromiumHandler;
 using static System.Environment;
@@ -68,7 +66,7 @@ namespace WebGuard.Supplier
 
         private void ChromeBrowser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
         {
-            _consoleOutput = e.Message;
+            _consoleOutput += e.Message;
         }
 
         private void Container_Load(object sender, EventArgs ev)
@@ -93,7 +91,13 @@ namespace WebGuard.Supplier
                         //_htmlSrc = new string(rawStr
                         //.Where(x => targetArr.All(y => y != x))
                         //.ToArray());
-                        Console.Write(_consoleOutput);
+                        _htmlSrc = _htmlSrc.Replace(" ", "")
+                            .Replace("/", "")
+                            .Replace("http", "")
+                            .Replace("png", "")
+                            .Replace("jpg", "")
+                            .Replace("gif", "");
+                        Console.Write(_htmlSrc);
                     }
                     else
                     {

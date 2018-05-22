@@ -40,14 +40,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1200, 431);
+            this.panel1.Size = new System.Drawing.Size(1022, 431);
             this.panel1.TabIndex = 0;
             // 
             // pnlProgressDetails
             // 
             this.pnlProgressDetails.Location = new System.Drawing.Point(50, 29);
             this.pnlProgressDetails.Name = "pnlProgressDetails";
-            this.pnlProgressDetails.Size = new System.Drawing.Size(1073, 378);
+            this.pnlProgressDetails.Size = new System.Drawing.Size(960, 378);
             this.pnlProgressDetails.TabIndex = 0;
             // 
             // ReliabilityForm
@@ -55,7 +55,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1200, 431);
+            this.ClientSize = new System.Drawing.Size(1022, 431);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

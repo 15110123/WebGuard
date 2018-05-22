@@ -12,17 +12,18 @@ using static System.Console;
 using static System.Diagnostics.Process;
 using static System.Threading.Tasks.Task;
 using static WebGuard.Utils.ImageUtils;
-using static WebGuard.Utils.LevenshteinUtils;
+using static WebGuard.Utils.StringDistanceUtils;
+// ReSharper disable CompareOfFloatsByEqualityOperator
 
 namespace WebGuard.UserControls.WebReliability
 {
-//Step 1: Get all image from src in <img/> 
-//Step 2: Get all src in <iframe/> 
-//Step 3: Get content (innerText) from html 
+    //Step 1: Get all image from src in <img/> 
+    //Step 2: Get all src in <iframe/> 
+    //Step 3: Get content (innerText) from html 
 
-// TH1: onload, onafter, <script></script>
-// TH2: Lồng ghép 
-// TH3: <script src="">
+    // TH1: onload, onafter, <script></script>
+    // TH2: Lồng ghép 
+    // TH3: <script src="">
 
     public sealed partial class ProgressDetails : UserControl
     {
@@ -49,57 +50,79 @@ namespace WebGuard.UserControls.WebReliability
             pnlLoading2.AddIcon("cup_game_loader_2", "#454545");
         }
 
-        private async void ProgressDetails_Load(object o, EventArgs e)
+        private void ProgressDetails_Load(object o, EventArgs e)
         {
-            pnlLoading1.Visible = true;
-            pnlLoading2.Visible = true;
-
-            try
+            Invoke((Action)(async () =>
             {
-                var analyzeServer = default(string);
-                GetAnalyzeServerResult();
+                pnlLoading1.Visible = true;
+                pnlLoading2.Visible = true;
 
-                HtmlFromPc = await GetHtmlFromPc();
-                var analyzePc = await AnalyzePcImg();
-                pnlLoading2.Visible = false;
-                while (analyzeServer == default(string))
+                try
                 {
-                    await Delay(1);
+                    var analyzeServer = default(string);
+                    GetAnalyzeServerResult();
+
+                    HtmlFromPc = await GetHtmlFromPc();
+                    var analyzePc = await AnalyzePcImg();
+                    pnlLoading2.Visible = false;
+                    while (analyzeServer == default(string))
+                    {
+                        await Delay(1);
+                    }
+                    pnlLoading1.Visible = false;
+
+                    #region Debug
+                    //WriteLine(analyzeServer);
+                    //WriteLine(analyzePc);
+                    //WriteLine(HtmlFromPc);
+                    //WriteLine(HtmlFromServer);
+                    #endregion
+
+                    double percentImg = -1, percentHtml = -1;
+
+                    LevenshteinHtml();
+                    LevenshteinImg();
+
+                    while (percentImg == -1 || percentHtml == -1) await Delay(1);
+
+                    var percents = (percentImg + percentHtml) / 2;
+
+                    lblPercents.Text = Math.Round(percents, 2) + "%";
+
+                    MessageBox.Show("Đã xong!");
+
+                    lblResult.Text = percents <= 15 ? "AN TOÀN" : "Nội dung trang web đã bị thay đổi";
+
+                    async void GetAnalyzeServerResult()
+                    {
+                        HtmlFromServer = await GetHtmlFromServer();
+                        analyzeServer = await AnalyzeServerImg();
+                    }
+
+                    async void LevenshteinImg()
+                    {
+                        percentImg = await DistanceEqualPercents(analyzeServer, analyzePc, false);
+                    }
+
+                    async void LevenshteinHtml()
+                    {
+                        //WriteLine(HtmlFromServer);
+                        //WriteLine("---------------------");
+                        //WriteLine(HtmlFromPc);
+                        percentHtml = await DistanceEqualPercents(HtmlFromServer, HtmlFromPc, true);
+                    }
                 }
-                pnlLoading1.Visible = false;
-
-                #region Debug
-                //WriteLine(analyzeServer);
-                //WriteLine(analyzePc);
-                //WriteLine(HtmlFromPc);
-                //WriteLine(HtmlFromServer);
-                #endregion
-
-                var percents = 
-                    (await LevenshteinEqualPercents(analyzeServer, analyzePc, false) + 
-                     await LevenshteinEqualPercents(HtmlFromServer, HtmlFromPc, true))
-                    /2;
-
-                lblPercents.Text = Math.Round(percents, 2) + "%";
-
-                MessageBox.Show("Đã xong!");
-
-                async void GetAnalyzeServerResult()
+                catch (Exception ex)
                 {
-                    HtmlFromServer = await GetHtmlFromServer();
-                    analyzeServer = await AnalyzeServerImg();
+                    WriteLine(ex.Message);
+                    WriteLine(ex.StackTrace);
                 }
-            }
-            catch (Exception ex)
-            {
-                WriteLine(ex.Message);
-                WriteLine(ex.StackTrace);
-            }
+            }));
         }
 
         private async Task<string> AnalyzeServerImg()
         {
-            var bitmap = await DownloadBitmap("http://192.168.110.55:5000/api/screenshot", Method.Post, ("url", Url), ("html", "0"));
+            var bitmap = await DownloadBitmap("http://172.27.73.28:5000/api/screenshot", Method.Post, ("url", Url), ("html", "0"));
 
             {
                 var guid = Guid.NewGuid().ToString();
@@ -166,7 +189,7 @@ namespace WebGuard.UserControls.WebReliability
                 httpClient.DefaultRequestHeaders.Add("url", Url);
                 httpClient.DefaultRequestHeaders.Add("html", "1");
 
-                return await (await httpClient.PostAsync("http://192.168.110.55:5000/api/screenshot", null))
+                return await (await httpClient.PostAsync("http://172.27.73.28:5000/api/screenshot", null))
                     .Content
                     .ReadAsStringAsync();
             }
