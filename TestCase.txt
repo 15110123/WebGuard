@@ -1,3 +1,4 @@
+<script>console.log("hello world")</script>
 %253Cscript%253Econsole.log("hello world")%253C%252Fscript%253E
 <img id="webguard" src="https://tse1.mm.bing.net/th?id=OIP.PaLxUmUpMtlzcdT5_dq5CgHaHa&pid=Api" onabort="console.log('hello world')">
 <img id="webguard" src="https://tse1.mm.bing.net/th?id=OIP.PaLxUmUpMtlzcdT5_dq5CgHaHa&pid=Api" onauxclick="console.log('hello world')">
