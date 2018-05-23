@@ -14,10 +14,10 @@ namespace WebGuard.Supplier
 
         public static async Task CaptureScreenTillEnd(this ChromiumObject obj)
         {
-            while (!await obj.IsEndScroll())
+            do
             {
                 await obj.CaptureScreenAndScroll();
-            }
+            } while (!await obj.IsEndScroll());
         }
 
         public static async Task CaptureScreenAndScroll(this ChromiumObject obj)

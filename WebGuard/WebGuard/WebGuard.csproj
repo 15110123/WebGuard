@@ -104,7 +104,7 @@
     <Compile Include="Utils\ChromiumUtils.cs" />
     <Compile Include="Utils\HTMLFormUtils.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
-    <Compile Include="Utils\LevenshteinUtils.cs" />
+    <Compile Include="Utils\StringDistanceUtils.cs" />
     <Compile Include="Utils\VFXUtils.cs" />
     <Compile Include="Utils\WebCrawlerUtils.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">
