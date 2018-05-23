@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using static System.Threading.Tasks.Task;
+using DiffMatchPatch;
 
 namespace WebGuard.Utils
 {
@@ -68,6 +69,41 @@ namespace WebGuard.Utils
             var newS2 = ClearString(s2, isHtmlCode);
 
             return (double)await Distance(newS1, newS2) / Math.Max(newS1.Length, newS2.Length) * 100;
+        }
+
+        public static async Task<int> WordDistance(string s1, string s2)
+        {
+            s1 = s1.Replace(" ", "\n");
+            s2 = s2.Replace(" ", "\n");
+            var dmp = DiffMatchPatchModule.Default;
+            var a = dmp.DiffLinesToChars(s1, s2);
+            var lineText1 = a.Item1;
+            var lineText2 = a.Item2;
+            var lineArray = a.Item3;
+            var diffs = dmp.DiffMain(lineText1, lineText2, false);
+            dmp.DiffCharsToLines(diffs, lineArray);
+            //diffs.ForEach(Console.WriteLine);
+            //diffs.Where(x => !Equals(x.Operation, Operation.Equal))
+            //    .ToList()
+            //    .ForEach(x => Console.WriteLine(x.Text));
+            //Console.WriteLine(diffs.Where(x => !Equals(x.Operation, Operation.Equal))
+                //.Sum(x => x.Text.Split('\n').Length));
+            return diffs.Where(x => !Equals(x.Operation, Operation.Equal))
+                .Sum(x => x.Text.Split('\n').Length);
+        }
+
+        public static async Task<double> WordDistanceEqualPercents(string s1, string s2, bool isHtmlCode)
+        {
+            var newS1 = ClearString(s1, isHtmlCode);
+            var newS2 = ClearString(s2, isHtmlCode);
+
+            Console.WriteLine("newS1");
+            Console.WriteLine(newS1);
+
+            Console.WriteLine("newS2");
+            Console.WriteLine(newS2);
+
+            return (double)await WordDistance(newS1, newS2) / (newS1.Replace(" ", "\n").Split('\n').Length + newS2.Replace(" ", "\n").Split('\n').Length) * 100;
         }
 
         private static string ClearString(string str, bool isHtmlCode)

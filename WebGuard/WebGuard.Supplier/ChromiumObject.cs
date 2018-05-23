@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebGuard.Supplier.ChromiumHandler;
 using static System.Environment;
@@ -30,6 +31,7 @@ namespace WebGuard.Supplier
             Container.Load += Container_Load;
 
             _isImg = imgOrHtml == "0";
+            _htmlSrc = "";
         }
 
         private ChromiumWebBrowser InitializeChromium(string url)
@@ -83,10 +85,21 @@ namespace WebGuard.Supplier
                     if (!_isImg)
                     {
                         //var targetArr = new[] { '{', '}', '"', ':', ',', '[', ']', '<', '>', '\\', '/', '\n', ' ', '=' };
-                        _htmlSrc = (await Browser.EvaluateScriptAsync("document.getElementsByTagName(\"html\")[0].innerText")).Result
-                            .ToString().Replace("\n", "");
+                        var tmp = (await Browser.EvaluateScriptAsync(
+"document.getElementsByTagName(\"html\")[0].innerText")).Result
+                            .ToString()
+                            .Split('\n');
+
+                        foreach (var ele in tmp)
+                        {
+                            if (ele != "" ||
+                                ele == "" && (_htmlSrc.Length == 0 || _htmlSrc[_htmlSrc.Length - 1] == '\n'))
+                                _htmlSrc += ele;
+                            else _htmlSrc += "\r\n";
+                        }
+
                         await Browser.EvaluateScriptAsync(
-                            "Array.prototype.forEach.call(document.getElementsByTagName(\"*\"), (o) => {console.log(o.src != null ? o.src : \"\")})");
+                            "Array.prototype.forEach.call(document.getElementsByTagName(\"*\"), (o) => {console.log((o.src != null && o.src != \"\") ? (o.src + \"\\n\") : \"\")})");
                         _htmlSrc += _consoleOutput;
                         //_htmlSrc = new string(rawStr
                         //.Where(x => targetArr.All(y => y != x))
@@ -101,6 +114,7 @@ namespace WebGuard.Supplier
                     }
                     else
                     {
+                        await Task.Delay(1000);
                         //Set height property
                         ViewHeight =
                             double.Parse((await Browser.EvaluateScriptAsync("window.innerHeight")).Result.ToString());

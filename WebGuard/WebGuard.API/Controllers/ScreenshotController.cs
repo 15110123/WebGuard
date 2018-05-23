@@ -26,7 +26,7 @@ namespace WebGuard.API.Controllers
                     }
                 };
                 ps.Start();
-                var filenameOrHtml = ps.StandardOutput.ReadLine();
+                var filenameOrHtml = await ps.StandardOutput.ReadToEndAsync();
 
                 while (Process.GetProcessesByName("WebGuard.Supplier").Length != 0)
                 {

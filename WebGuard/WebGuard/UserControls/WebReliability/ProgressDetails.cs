@@ -101,7 +101,7 @@ namespace WebGuard.UserControls.WebReliability
 
                     async void LevenshteinImg()
                     {
-                        percentImg = await DistanceEqualPercents(analyzeServer, analyzePc, false);
+                        percentImg = await WordDistanceEqualPercents(analyzeServer, analyzePc, false);
                     }
 
                     async void LevenshteinHtml()
@@ -109,7 +109,7 @@ namespace WebGuard.UserControls.WebReliability
                         //WriteLine(HtmlFromServer);
                         //WriteLine("---------------------");
                         //WriteLine(HtmlFromPc);
-                        percentHtml = await DistanceEqualPercents(HtmlFromServer, HtmlFromPc, true);
+                        percentHtml = await WordDistanceEqualPercents(HtmlFromServer, HtmlFromPc, true);
                     }
                 }
                 catch (Exception ex)
@@ -208,7 +208,7 @@ namespace WebGuard.UserControls.WebReliability
                 }
             };
             ps.Start();
-            var html = ps.StandardOutput.ReadLine();
+            var html = await ps.StandardOutput.ReadToEndAsync();
 
             while (GetProcessesByName("WebGuard.Supplier").Length != 0)
             {
