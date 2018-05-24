@@ -107,9 +107,7 @@ namespace WebGuard.Supplier
                         _htmlSrc = _htmlSrc.Replace(" ", "")
                             .Replace("/", "")
                             .Replace("http", "")
-                            .Replace("png", "")
-                            .Replace("jpg", "")
-                            .Replace("gif", "");
+                            .Replace("https", "");
                         Console.Write(_htmlSrc);
                     }
                     else

@@ -91,7 +91,18 @@ namespace WebGuard.UserControls.WebReliability
 
                     MessageBox.Show("Đã xong!");
 
-                    lblResult.Text = percents <= 15 ? "AN TOÀN" : "Nội dung trang web đã bị thay đổi";
+                    string result;
+
+                    if (percents == 0)
+                        result = "Xin chúc mừng! Trang web không bị thay đổi";
+                    else if (percents <= 30)
+                        result = "Trang web có một số thay đổi nhưng ít nguy hiểm";
+                    else if (percents <= 70)
+                        result = "Trang web có nhiều thay đổi, cần cảnh giác";
+                    else
+                        result = "Trang web có quá nhiều thay đổi, nên tránh xa";
+
+                    lblResult.Text = result;
 
                     async void GetAnalyzeServerResult()
                     {
@@ -243,7 +254,7 @@ namespace WebGuard.UserControls.WebReliability
                 Width = img.Width,
                 Height = img.Height
             });
-            frm.ShowDialog();
+            frm.Show();
         }
     }
 }

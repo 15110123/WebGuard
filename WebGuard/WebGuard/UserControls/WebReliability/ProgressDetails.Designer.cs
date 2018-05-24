@@ -213,7 +213,7 @@
             this.panel9.Controls.Add(this.lblResult);
             this.panel9.Location = new System.Drawing.Point(516, 279);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(324, 100);
+            this.panel9.Size = new System.Drawing.Size(324, 154);
             this.panel9.TabIndex = 7;
             // 
             // ProgressDetails
@@ -230,7 +230,7 @@
             this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ProgressDetails";
-            this.Size = new System.Drawing.Size(843, 418);
+            this.Size = new System.Drawing.Size(843, 450);
             this.Load += new System.EventHandler(this.ProgressDetails_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

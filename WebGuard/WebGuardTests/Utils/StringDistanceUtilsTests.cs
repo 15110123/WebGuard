@@ -1,4 +1,5 @@
-﻿using WebGuard.Utils;
+﻿using System;
+using WebGuard.Utils;
 using static System.Console;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -28,7 +29,17 @@ namespace WebGuard.Utils.Tests
             var res = StringDistanceUtils.WordDistance(
                 "I am the very model of a modern Major-General,\nI've information vegetable, animal, and mineral,\nI know the kings of England, and I quote the fights historical,\nFrom Marathon to Waterloo, in order categorical.",
                 "I am the very model of a cartoon individual,\nMy animation's comical, unusual, and whimsical,\nI'm quite adept at funny gags, comedic theory I have read,\nFrom wicked puns and stupid jokes to anvils that drop on your head.").Result;
-            Assert.Fail();
+            WriteLine(res);
+        }
+
+        [TestMethod()]
+        public void WordDistanceEqualPercentsTest()
+        {
+            var res = StringDistanceUtils.WordDistanceEqualPercents(
+                    "I am the very model of a modern Major-General,\nI've information vegetable, animal, and mineral,\nI know the kings of England, and I quote the fights historical,\nFrom Marathon to Waterloo, in order categorical.",
+                    "Chuyển đổi mỗi dòng", true)
+                .Result;
+            WriteLine(res);
         }
     }
 }
