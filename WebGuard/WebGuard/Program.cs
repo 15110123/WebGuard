@@ -7,12 +7,17 @@ namespace WebGuard
 {
     internal static class Program
     {
+        public static string ServerIp;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            if (args.Length != 0)
+                ServerIp = args[0];
+
             var settings = new CefSettings
             {
                 BrowserSubprocessPath = @"x86\CefSharp.BrowserSubprocess.exe",

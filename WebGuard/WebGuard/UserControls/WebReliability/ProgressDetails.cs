@@ -133,7 +133,7 @@ namespace WebGuard.UserControls.WebReliability
 
         private async Task<string> AnalyzeServerImg()
         {
-            var bitmap = await DownloadBitmap("http://172.27.73.28:5000/api/screenshot", Method.Post, ("url", Url), ("html", "0"));
+            var bitmap = await DownloadBitmap($"http://{Program.ServerIp}:5000/api/screenshot", Method.Post, ("url", Url), ("html", "0"));
 
             {
                 var guid = Guid.NewGuid().ToString();
@@ -200,7 +200,7 @@ namespace WebGuard.UserControls.WebReliability
                 httpClient.DefaultRequestHeaders.Add("url", Url);
                 httpClient.DefaultRequestHeaders.Add("html", "1");
 
-                return await (await httpClient.PostAsync("http://172.27.73.28:5000/api/screenshot", null))
+                return await (await httpClient.PostAsync($"http://{Program.ServerIp}:5000/api/screenshot", null))
                     .Content
                     .ReadAsStringAsync();
             }
